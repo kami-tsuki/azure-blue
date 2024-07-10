@@ -1,4 +1,4 @@
-Sure, Master Tsuki. Here's a detailed README.md for your script:
+Azure Blue v1
 
 ---
 
@@ -49,7 +49,7 @@ Download and install Ngrok from the [official website](https://ngrok.com/downloa
 2. **Execute the script** with the necessary parameters:
 
    ```powershell
-   .\NgrokBotService.ps1 -NgrokPath "C:\path\to\ngrok.exe" -LocalHost "localhost:3978" -AzureSubscriptionId "your-subscription-id" -ResourceGroupName "your-resource-group" -AppServiceName "your-app-service-name" -TenantId "your-tenant-id"
+   .\NgrokBotService.ps1 -NgrokPath "C:\path\to\ngrok.exe" -LocalHost "http://localhost:3978" -AzureSubscriptionId "your-subscription-id" -ResourceGroupName "your-resource-group" -AppServiceName "your-app-service-name" -TenantId "your-tenant-id"
    ```
 
 ## Process
@@ -93,4 +93,4 @@ By following this guide, you should be able to set up and execute the script suc
 
 ---
 
-This should cover all the necessary aspects of setting up, executing, and troubleshooting the script. Let me know if there's anything else you need, Master Tsuki.
+Author: k**A**m**I**
