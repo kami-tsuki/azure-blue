@@ -43,10 +43,17 @@ function Update-BotServiceConfig
     )
     try
     {
-        if (-not (Get-Module -Name Az) -or -not (Get-Module -Name Az.BotService))
+        $azModule = Get-Module -ListAvailable -Name Az
+        $azBotServiceModule = Get-Module -ListAvailable -Name Az.BotService
+        $azModuleLoaded = Get-Module -Name Az
+        $azBotServiceModuleLoaded = Get-Module -Name Az.BotService
+        if ($azModule -and -not $azModuleLoaded)
         {
             Write-Host "Importing Az module..."
             Import-Module Az -ErrorAction Stop -Force -NoClobber -Scope Global
+        }
+        if ($azBotServiceModule -and -not $azBotServiceModuleLoaded)
+        {
             Write-Host "Importing Az Bot module..."
             Import-Module Az.BotService -ErrorAction Stop -Force -NoClobber -Scope Global
         }
