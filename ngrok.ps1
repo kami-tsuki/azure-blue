@@ -1,4 +1,4 @@
-# Azure Blue v1.2
+# Azure Blue v1.1
 # Description: This script starts ngrok, retrieves the ngrok URL, updates the Bot Service configuration with the ngrok URL, and stops ngrok.
 # Parameters:
 #   - NgrokPath: The path to the ngrok executable.
