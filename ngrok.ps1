@@ -1,25 +1,3 @@
-# Azure Blue v1.1
-# Description: This script starts ngrok, retrieves the ngrok URL, updates the Bot Service configuration with the ngrok URL, and stops ngrok.
-# Parameters:
-#   - NgrokPath: The path to the ngrok executable.
-#   - LocalHost: The local host URL to tunnel.
-#   - AzureSubscriptionId: The Azure subscription ID.
-#   - ResourceGroupName: The Azure resource group name.
-#   - AppServiceName: The Azure App Service name.
-#   - TenantId: The Azure tenant ID.
-#   - Endpoint: The Bot Service endpoint to update.
-#   - TunnelEndpoint: The ngrok API endpoint to retrieve the tunnel URL.
-#   - NgrokApiUrl: The ngrok API URL.
-#   - HostHeader: The host header to use when starting ngrok.
-#   - MaxTimeout: The maximum time to wait for ngrok to initialize.
-#   - SleepInterval: The interval to wait between ngrok initialization checks.
-#   - ImportScope: The scope to import the Az module.
-#   - ResetBotEndpoint: A flag to reset the Bot Service endpoint.
-#   - ResetNgrok: A flag to reset ngrok.
-#   - DefaultProtocol: The protocol to use for the default endpoint.
-# Usage: .\ngrok.ps1 -NgrokPath "C:\path\to\ngrok.exe" -LocalHost "http://localhost:5000" -AzureSubscriptionId "subscriptionId" -ResourceGroupName "resourceGroupName" -AppServiceName "appServiceName" -TenantId "tenantId"
-# Author: Tsuki Kami
-
 param (
     [string]$NgrokPath,
     [string]$LocalHost,
@@ -36,7 +14,9 @@ param (
     [string]$ImportScope = "Global",
     [bool]$ResetBotEndpoint = $true,
     [bool]$ResetNgrok = $true,
-    [string]$DefaultProtocol = "https"
+    [string]$DefaultProtocol = "https",
+    [int]$Reset = 0,
+    [int]$Start = 0
 )
 
 function Import-AzModules {
@@ -166,19 +146,25 @@ function Start-AzureBlue {
 
         Write-Host "New Messaging Endpoint URL: $ngrokUrl/$Endpoint"
         Write-Host "Script execution completed successfully."
-        Write-Host "Press any key to stop ngrok and exit..."
-        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+        if ($Start -eq 0) {
+            Write-Host "Press any key to stop ngrok and exit..."
+            $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+        }
     } catch {
         Write-Host "Script encountered an error: $_"
-        if ($ngrokProcess -ne $null) {
+        if ($ngrokProcess -ne $null -and $Start -eq 0 ) {
             Stop-NgrokAndReset -ResetBot $ResetBotEndpoint -ResetNgrok $ResetNgrok
         }
     } finally {
-        if ($ngrokProcess -ne $null) {
+        if ($ngrokProcess -ne $null -and $Start -eq 0) {
             Stop-NgrokAndReset -ResetBot $ResetBotEndpoint -ResetNgrok $ResetNgrok
         }
         Write-Host "Good bye!"
     }
 }
 
-Start-AzureBlue
+if ($Reset -eq 1) {
+    Reset-BotServiceConfig
+} else {
+    Start-AzureBlue
+}
