@@ -67,7 +67,7 @@ Download and install Ngrok from the [official website](https://ngrok.com/downloa
    .\AzureBlue.ps1 -NgrokPath "C:\path\to\ngrok.exe" -LocalHost "http://localhost:5000" -AzureSubscriptionId "your-subscription-id" -ResourceGroupName "your-resource-group" -AppServiceName "your-app-service-name" -TenantId "your-tenant-id -Start 1"
    ```
 
-   -To only reset the program without starting:
+   - To only reset the program without starting:
    ```powershell
    .\AzureBlue.ps1 -NgrokPath "C:\path\to\ngrok.exe" -LocalHost "http://localhost:5000" -AzureSubscriptionId "your-subscription-id" -ResourceGroupName "your-resource-group" -AppServiceName "your-app-service-name" -TenantId "your-tenant-id -Reset 1"
    ```
