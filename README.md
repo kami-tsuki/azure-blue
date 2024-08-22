@@ -50,6 +50,8 @@ Download and install Ngrok from the [official website](https://ngrok.com/downloa
 | `ResetBotEndpoint`   | bool      | true                  | A flag to reset the Bot Service endpoint.                                   |
 | `ResetNgrok`         | bool      | true                  | A flag to reset Ngrok.                                                      |
 | `DefaultProtocol`    | string    | `https`               | The protocol to use for the default endpoint.                               |
+| `Start`              | int       | 0                     | 0 or 1, if 1 is only starting, dont waits for reset, even on errors        |
+| `Reset`              | int       | 0                     | 0 or 1, if 1 dont processes the start and just resets the url in bot (DONT stops Ngrok |
 
 ## Execution
 
@@ -59,6 +61,18 @@ Download and install Ngrok from the [official website](https://ngrok.com/downloa
    ```powershell
    .\AzureBlue.ps1 -NgrokPath "C:\path\to\ngrok.exe" -LocalHost "http://localhost:5000" -AzureSubscriptionId "your-subscription-id" -ResourceGroupName "your-resource-group" -AppServiceName "your-app-service-name" -TenantId "your-tenant-id"
    ```
+
+   - To just start the program without the automated resetting:
+   ```powershell
+   .\AzureBlue.ps1 -NgrokPath "C:\path\to\ngrok.exe" -LocalHost "http://localhost:5000" -AzureSubscriptionId "your-subscription-id" -ResourceGroupName "your-resource-group" -AppServiceName "your-app-service-name" -TenantId "your-tenant-id -Start 1"
+   ```
+
+   -To only reset the program without starting:
+   ```powershell
+   .\AzureBlue.ps1 -NgrokPath "C:\path\to\ngrok.exe" -LocalHost "http://localhost:5000" -AzureSubscriptionId "your-subscription-id" -ResourceGroupName "your-resource-group" -AppServiceName "your-app-service-name" -TenantId "your-tenant-id -Reset 1"
+   ```
+
+   > Currently the Reset also needs some potential uneeded NGrok data, is planned to fix!
 
 ## Detailed Process
 
